@@ -1,6 +1,7 @@
 import os
 import numpy as np
 import pandas as pd
+from pgmpy.readwrite.PomdpX import PomdpXReader
 from pgmpy.readwrite.XMLBIF import XMLBIFReader
 from pgmpy.readwrite.BIF import BIFReader
 from pgmpy.inference import VariableElimination
@@ -15,8 +16,8 @@ def load_dataset(data: pd.DataFrame):
 @st.cache_data
 def load_model(model_type='bif'):
     if model_type == 'bif':
-        return BIFReader(f'model{os.sep}heart_disease_model.bif').get_model()
-    else:
+        return BIFReader(path=f'model{os.sep}heart_disease_model.bif', n_jobs=1).get_model()
+    elif model_type == 'xml':
         return XMLBIFReader(f'model{os.sep}heart_disease_model.xml').get_model()
 
 
@@ -49,7 +50,7 @@ st.caption('This Dashboard is part of the project of the course "Fundamentals of
 # with st.expander('About Bayesian Networks')
 
 df = load_dataset(data=f'data{os.sep}heart_cleaned.csv')
-model = load_model()
+model = load_model(model_type='bif')
 probs = np.array([])
 
 LEFT, RIGHT = st.columns(2)
