@@ -7,14 +7,13 @@ RUN apt-get update && apt-get install -y \
     curl \
     software-properties-common \
     git \
-    ffmpeg \
     graphviz \
     graphviz-dev \
     libgraphviz-dev \
     pkg-config  \
     && rm -rf /var/lib/apt/lists/* \
-    && git clone https://github.com/MatteoFasulo/BayesianClassifier . \
-    && pip3 install -r requirements.txt
+    && git clone https://github.com/MatteoFasulo/HeartDisease-Dashboard . \
+    && pip3 install -U -r requirements.txt
 
 EXPOSE 8501
 
